@@ -1,15 +1,15 @@
 # upload_resume_react_node
 
-Login with google and file uploading and listing
+Candidate basic information and resume upload
 
 We have make front-end and back-end on separate directries:
 
 Steps:
 1. Download code and place in a common directory.
 2. Import database file `resume_cv.sql` in mysql
-3. Open file_upload directory for running front-end:
+3. Open resume_upload directory for running front-end:
 
-   a. `cd file_upload`
+   a. `cd resume_upload`
 
    b. run `npm install` for install all packages
 
