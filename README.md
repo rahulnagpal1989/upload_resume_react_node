@@ -6,7 +6,7 @@ We have make front-end and back-end on separate directries:
 
 Steps:
 1. Download code and place in a common directory.
-2. Import database file `resume_cv.sql` in mysql
+2. Create database name `resume_upload` and import database file `resume_cv.sql` in mysql. 
 3. Open resume_upload directory for running front-end:
 
    a. `cd resume_upload`
