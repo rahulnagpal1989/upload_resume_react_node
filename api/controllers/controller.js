@@ -11,6 +11,13 @@ exports.homePage = (req, res, next) => {
 exports.saveResume = (req, res, next) => {
     var form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
+        if (!fields.first_name) return res.json({ code: 412, message: "Please enter first name", data: [] });
+        if (!fields.email) return res.json({ code: 412, message: "Please enter email", data: [] });
+        if (!fields.live_in_us) return res.json({ code: 412, message: "Please select live in US", data: [] });
+        if (!fields.git_profile) return res.json({ code: 412, message: "Please enter Git profile", data: [] });
+        if (!files.cv.originalFilename) return res.json({ code: 412, message: "Please upload cv", data: [] });
+        if (!fields.about_you) return res.json({ code: 412, message: "Please enter about yourself", data: [] });
+
         let first_name = fields.first_name;
         let last_name = fields.last_name;
         let email = fields.email;
@@ -18,13 +25,6 @@ exports.saveResume = (req, res, next) => {
         let live_in_us = fields.live_in_us==='Yes' ? 1 : 0;
         let git_profile = fields.git_profile;
         let about_you = fields.about_you;
-        
-        if (!first_name) return res.json({ code: 412, message: "Please enter first name", data: [] });
-        if (!email) return res.json({ code: 412, message: "Please enter email", data: [] });
-        if (!live_in_us) return res.json({ code: 412, message: "Please select live in US", data: [] });
-        if (!git_profile) return res.json({ code: 412, message: "Please enter Git profile", data: [] });
-        if (!files.cv.originalFilename) return res.json({ code: 412, message: "Please upload cv", data: [] });
-        if (!about_you) return res.json({ code: 412, message: "Please enter about yourself", data: [] });
 
         let resumeId = await insertUserDetails(first_name, last_name, email, phone_number, live_in_us, git_profile, about_you);
 
