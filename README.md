@@ -22,4 +22,6 @@ Steps:
    b. run `npm install` for install all packages
 
    c. run `npm start`, this will run on [http://localhost:4000](http://localhost:4000)
+   
+   d. run `npm run test` for unit test cases
 
