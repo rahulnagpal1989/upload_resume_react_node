@@ -5,23 +5,23 @@ var {insertUserDetails, updateUserDetails} = require('../models/model');
 var moment = require('moment');
 
 exports.homePage = (req, res, next) => {
-    res.send('Hello World!');
+    res.status(200).send('Hello World!');
 };
 
 exports.saveResume = (req, res, next) => {
     var form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
-        if (!fields.first_name) return res.json({ code: 412, message: "Please enter first name", data: [] });
-        if (!fields.email) return res.json({ code: 412, message: "Please enter email", data: [] });
-        if (!fields.live_in_us) return res.json({ code: 412, message: "Please select live in US", data: [] });
-        if (!fields.git_profile) return res.json({ code: 412, message: "Please enter Git profile", data: [] });
-        if (!files.cv.originalFilename) return res.json({ code: 412, message: "Please upload cv", data: [] });
-        if (!fields.about_you) return res.json({ code: 412, message: "Please enter about yourself", data: [] });
+        if (!fields.first_name) return res.status(412).json({ code: 412, message: "Please enter first name", data: [] });
+        if (!fields.email) return res.status(412).json({ code: 412, message: "Please enter email", data: [] });
+        if (!fields.live_in_us) return res.status(412).json({ code: 412, message: "Please select live in US", data: [] });
+        if (!fields.git_profile) return res.status(412).json({ code: 412, message: "Please enter Git profile", data: [] });
+        if (!files.cv) return res.status(412).json({ code: 412, message: "Please upload cv", data: [] });
+        if (!fields.about_you) return res.status(412).json({ code: 412, message: "Please enter about yourself", data: [] });
 
         let first_name = fields.first_name;
-        let last_name = fields.last_name;
+        let last_name = fields.last_name ?? '';
         let email = fields.email;
-        let phone_number = fields.phone_number;
+        let phone_number = fields.phone_number ?? '';
         let live_in_us = fields.live_in_us==='Yes' ? 1 : 0;
         let git_profile = fields.git_profile;
         let about_you = fields.about_you;
@@ -46,7 +46,7 @@ exports.saveResume = (req, res, next) => {
                 resumeId = await updateUserDetails(cv, cover_letter);
             }
 
-            res.json({
+            res.status(200).json({
                 success: 1,
                 id: resumeId,
                 message: 'Resume uploaded successfully'
